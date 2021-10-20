@@ -23,6 +23,12 @@ struct Results : Codable {
         var subtypes : [String]
         var types : [String]
         var flavorText : String!
+        var images : (size)!
+        
+}
+
+struct size : Codable {
+    var small : String!
 }
 
 

@@ -38,7 +38,6 @@ class ServiceAPI {
                 completed(.success(results))
             } catch {
                 completed(.failure(.invalidData))
-                print("masuk")
             }
         }
         task.resume()
