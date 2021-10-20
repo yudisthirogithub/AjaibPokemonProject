@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,9 +17,14 @@
 		75480C50271EB9320076DE14 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75480C4F271EB9320076DE14 /* Pokemon.swift */; };
 		75480C55271EC3D20076DE14 /* ErrorMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75480C54271EC3D20076DE14 /* ErrorMessages.swift */; };
 		75480C58271FDB8C0076DE14 /* UIKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75480C57271FDB8C0076DE14 /* UIKitHelper.swift */; };
+		75480C6227201BF00076DE14 /* PokemonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75480C6027201BF00076DE14 /* PokemonCollectionViewCell.swift */; };
+		75480C6327201BF00076DE14 /* PokemonCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75480C6127201BF00076DE14 /* PokemonCollectionViewCell.xib */; };
+		E1A2ABE6DE4006484444270A /* Pods_AjaibPokemonProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 371530E368D06420B69B2C72 /* Pods_AjaibPokemonProject.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B34EBCEE48FF8D24A62B6BC /* Pods-AjaibPokemonProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AjaibPokemonProject.debug.xcconfig"; path = "Target Support Files/Pods-AjaibPokemonProject/Pods-AjaibPokemonProject.debug.xcconfig"; sourceTree = "<group>"; };
+		371530E368D06420B69B2C72 /* Pods_AjaibPokemonProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AjaibPokemonProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75480C2B271E67330076DE14 /* AjaibPokemonProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AjaibPokemonProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75480C2E271E67330076DE14 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		75480C30271E67330076DE14 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -32,6 +37,9 @@
 		75480C4F271EB9320076DE14 /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
 		75480C54271EC3D20076DE14 /* ErrorMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessages.swift; sourceTree = "<group>"; };
 		75480C57271FDB8C0076DE14 /* UIKitHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitHelper.swift; sourceTree = "<group>"; };
+		75480C6027201BF00076DE14 /* PokemonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonCollectionViewCell.swift; sourceTree = "<group>"; };
+		75480C6127201BF00076DE14 /* PokemonCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PokemonCollectionViewCell.xib; sourceTree = "<group>"; };
+		E4AAE1BDA663C84B91A75331 /* Pods-AjaibPokemonProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AjaibPokemonProject.release.xcconfig"; path = "Target Support Files/Pods-AjaibPokemonProject/Pods-AjaibPokemonProject.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1A2ABE6DE4006484444270A /* Pods_AjaibPokemonProject.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,6 +59,8 @@
 			children = (
 				75480C2D271E67330076DE14 /* AjaibPokemonProject */,
 				75480C2C271E67330076DE14 /* Products */,
+				E757402B49D0CFE9279E5758 /* Pods */,
+				A547B2351DDD13E59070C66C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -66,11 +77,11 @@
 			children = (
 				75480C2E271E67330076DE14 /* AppDelegate.swift */,
 				75480C57271FDB8C0076DE14 /* UIKitHelper.swift */,
+				75480C5F27201BD60076DE14 /* Cell */,
 				75480C49271EAC0D0076DE14 /* Model */,
 				75480C44271EA7DA0076DE14 /* Service API */,
 				75480C30271E67330076DE14 /* SceneDelegate.swift */,
-				75480C32271E67330076DE14 /* ViewController.swift */,
-				75480C34271E67330076DE14 /* Main.storyboard */,
+				75480C6527205A6E0076DE14 /* MainView */,
 				75480C37271E67340076DE14 /* Assets.xcassets */,
 				75480C39271E67340076DE14 /* LaunchScreen.storyboard */,
 				75480C3C271E67340076DE14 /* Info.plist */,
@@ -95,6 +106,41 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		75480C5F27201BD60076DE14 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				75480C6027201BF00076DE14 /* PokemonCollectionViewCell.swift */,
+				75480C6127201BF00076DE14 /* PokemonCollectionViewCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		75480C6527205A6E0076DE14 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				75480C32271E67330076DE14 /* ViewController.swift */,
+				75480C34271E67330076DE14 /* Main.storyboard */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		A547B2351DDD13E59070C66C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				371530E368D06420B69B2C72 /* Pods_AjaibPokemonProject.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E757402B49D0CFE9279E5758 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2B34EBCEE48FF8D24A62B6BC /* Pods-AjaibPokemonProject.debug.xcconfig */,
+				E4AAE1BDA663C84B91A75331 /* Pods-AjaibPokemonProject.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -102,9 +148,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 75480C3F271E67340076DE14 /* Build configuration list for PBXNativeTarget "AjaibPokemonProject" */;
 			buildPhases = (
+				5B05171214ACDE66371A48C0 /* [CP] Check Pods Manifest.lock */,
 				75480C27271E67330076DE14 /* Sources */,
 				75480C28271E67330076DE14 /* Frameworks */,
 				75480C29271E67330076DE14 /* Resources */,
+				5A8EDDB137785DAD8512A769 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -154,11 +202,54 @@
 			files = (
 				75480C3B271E67340076DE14 /* LaunchScreen.storyboard in Resources */,
 				75480C38271E67340076DE14 /* Assets.xcassets in Resources */,
+				75480C6327201BF00076DE14 /* PokemonCollectionViewCell.xib in Resources */,
 				75480C36271E67330076DE14 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5A8EDDB137785DAD8512A769 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AjaibPokemonProject/Pods-AjaibPokemonProject-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AjaibPokemonProject/Pods-AjaibPokemonProject-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AjaibPokemonProject/Pods-AjaibPokemonProject-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5B05171214ACDE66371A48C0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AjaibPokemonProject-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		75480C27271E67330076DE14 /* Sources */ = {
@@ -167,6 +258,7 @@
 			files = (
 				75480C50271EB9320076DE14 /* Pokemon.swift in Sources */,
 				75480C33271E67330076DE14 /* ViewController.swift in Sources */,
+				75480C6227201BF00076DE14 /* PokemonCollectionViewCell.swift in Sources */,
 				75480C55271EC3D20076DE14 /* ErrorMessages.swift in Sources */,
 				75480C2F271E67330076DE14 /* AppDelegate.swift in Sources */,
 				75480C46271EA7F20076DE14 /* ServiceAPI.swift in Sources */,
@@ -315,6 +407,7 @@
 		};
 		75480C40271E67340076DE14 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B34EBCEE48FF8D24A62B6BC /* Pods-AjaibPokemonProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -334,6 +427,7 @@
 		};
 		75480C41271E67340076DE14 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4AAE1BDA663C84B91A75331 /* Pods-AjaibPokemonProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
