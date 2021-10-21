@@ -10,11 +10,9 @@ import Foundation
 class ServiceAPI {
     static let shared = ServiceAPI()
     
-    
     func getResults(pokemonName: String, completed: @escaping (Result<ResultsResponse, ErrorMessages>) -> Void){
         
         let urlString = "https://api.pokemontcg.io/v2/cards?q=name:\(pokemonName)"
-        
         guard let url = URL(string: urlString) else {return}
         
         let task = URLSession.shared.dataTask(with: url){(data, response, error) in
