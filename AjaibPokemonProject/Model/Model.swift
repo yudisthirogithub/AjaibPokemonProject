@@ -13,6 +13,7 @@ class Model {
     var types : [String]?
     var flavorText : String?
     var images : String?
+    var hp : String?
     
     required init() {}
 }

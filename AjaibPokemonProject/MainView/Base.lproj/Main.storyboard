@@ -45,11 +45,20 @@
                     </view>
                     <connections>
                         <outlet property="pokemonCollectionView" destination="2JO-RP-yqJ" id="gjH-9u-1Le"/>
+                        <segue destination="irF-5X-XxC" kind="showDetail" identifier="goToDetail" id="x6r-rk-dzB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-146.37681159420291" y="93.75"/>
+        </scene>
+        <!--Detail-->
+        <scene sceneID="sJV-wH-UdY">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Detail" id="irF-5X-XxC" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1F7-o8-yA6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="631" y="74"/>
         </scene>
     </scenes>
     <resources>

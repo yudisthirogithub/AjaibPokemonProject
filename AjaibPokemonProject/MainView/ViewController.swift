@@ -12,8 +12,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var pokemonCollectionView: UICollectionView!
     
     private let spacing:CGFloat = 8.0
-    private let Backgroundcolor = UIColor(hexString: "#1A202C")
-    private let navBackgroundColor = UIColor(hexString: "#161B22")
+    public let Backgroundcolor = UIColor(hexString: "#1A202C")
+    public let navBackgroundColor = UIColor(hexString: "#161B22")
     
     private var pokemonsStorage = [Model]()
     private var filteredData = [Model]()
@@ -75,6 +75,7 @@ class ViewController: UIViewController {
                         pokemons.subtypes = result.subtypes
                         pokemons.flavorText = result.flavorText
                         pokemons.images = result.images.small
+                        pokemons.hp = result.hp
                         self?.pokemonsStorage.append(pokemons)
                     }
                 case .failure(let error):
@@ -118,13 +119,20 @@ class ViewController: UIViewController {
         }else{
             for name in pokemonsStorage {
                 if name.name!.lowercased().contains(searchText.lowercased()){
-                    print(name.name)
                     filteredData.append(name)
                 }
             }
         }
 
         self.pokemonCollectionView.reloadData()
+    }
+    
+    
+    // MARK: -Segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToDetail" {
+            guard let vc = segue.destination as? DetailViewController else {return}
+        }
     }
 }
 
@@ -146,8 +154,6 @@ extension ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PokemonCollectionViewCell", for: indexPath) as! PokemonCollectionViewCell
         
-//        print(pokemonsStorage[indexPath.row].images)
-        
             ImageLoaderService.shared.getImage(urlString: filteredData[indexPath.row].images!) { (data, error) in
                 if error != nil {
                     cell.setImage(image: UIImage(named: "jungle"))
@@ -159,6 +165,21 @@ extension ViewController: UICollectionViewDataSource {
         
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(filteredData[indexPath.row].name)
+        
+        let detailView = DetailViewController()
+        
+        detailView.details.name = filteredData[indexPath.row].name
+        detailView.details.types = filteredData[indexPath.row].types
+        detailView.details.hp = filteredData[indexPath.row].hp
+        detailView.details.subtypes = filteredData[indexPath.row].subtypes
+        detailView.details.flavorText = filteredData[indexPath.row].flavorText
+        detailView.details.images = filteredData[indexPath.row].images
+        
+        performSegue(withIdentifier: "goToDetail", sender: self)
     }
 }
 

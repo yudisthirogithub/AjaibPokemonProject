@@ -21,6 +21,7 @@ struct Results : Codable {
     var types : [String]
     var flavorText : String!
     var images : Size!
+    var hp : String!
     
 }
 
