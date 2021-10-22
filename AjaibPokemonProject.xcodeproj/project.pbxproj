@@ -20,6 +20,8 @@
 		75480C6227201BF00076DE14 /* PokemonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75480C6027201BF00076DE14 /* PokemonCollectionViewCell.swift */; };
 		75480C6327201BF00076DE14 /* PokemonCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75480C6127201BF00076DE14 /* PokemonCollectionViewCell.xib */; };
 		75480C68272155B40076DE14 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75480C67272155B30076DE14 /* Model.swift */; };
+		75480C71272163410076DE14 /* secondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75480C70272163410076DE14 /* secondViewController.swift */; };
+		75480C7C272169070076DE14 /* ImageLoaderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75480C7B272169070076DE14 /* ImageLoaderService.swift */; };
 		E1A2ABE6DE4006484444270A /* Pods_AjaibPokemonProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 371530E368D06420B69B2C72 /* Pods_AjaibPokemonProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +43,8 @@
 		75480C6027201BF00076DE14 /* PokemonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonCollectionViewCell.swift; sourceTree = "<group>"; };
 		75480C6127201BF00076DE14 /* PokemonCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PokemonCollectionViewCell.xib; sourceTree = "<group>"; };
 		75480C67272155B30076DE14 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		75480C70272163410076DE14 /* secondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = secondViewController.swift; sourceTree = "<group>"; };
+		75480C7B272169070076DE14 /* ImageLoaderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderService.swift; sourceTree = "<group>"; };
 		E4AAE1BDA663C84B91A75331 /* Pods-AjaibPokemonProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AjaibPokemonProject.release.xcconfig"; path = "Target Support Files/Pods-AjaibPokemonProject/Pods-AjaibPokemonProject.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,6 +87,7 @@
 				75480C49271EAC0D0076DE14 /* Model */,
 				75480C44271EA7DA0076DE14 /* Service API */,
 				75480C30271E67330076DE14 /* SceneDelegate.swift */,
+				75480C73272163470076DE14 /* secondView */,
 				75480C6527205A6E0076DE14 /* MainView */,
 				75480C37271E67340076DE14 /* Assets.xcassets */,
 				75480C39271E67340076DE14 /* LaunchScreen.storyboard */,
@@ -96,6 +101,7 @@
 			children = (
 				75480C45271EA7F20076DE14 /* ServiceAPI.swift */,
 				75480C54271EC3D20076DE14 /* ErrorMessages.swift */,
+				75480C7B272169070076DE14 /* ImageLoaderService.swift */,
 			);
 			path = "Service API";
 			sourceTree = "<group>";
@@ -125,6 +131,14 @@
 				75480C34271E67330076DE14 /* Main.storyboard */,
 			);
 			path = MainView;
+			sourceTree = "<group>";
+		};
+		75480C73272163470076DE14 /* secondView */ = {
+			isa = PBXGroup;
+			children = (
+				75480C70272163410076DE14 /* secondViewController.swift */,
+			);
+			path = secondView;
 			sourceTree = "<group>";
 		};
 		A547B2351DDD13E59070C66C /* Frameworks */ = {
@@ -261,12 +275,14 @@
 			files = (
 				75480C68272155B40076DE14 /* Model.swift in Sources */,
 				75480C50271EB9320076DE14 /* Pokemon.swift in Sources */,
+				75480C7C272169070076DE14 /* ImageLoaderService.swift in Sources */,
 				75480C33271E67330076DE14 /* ViewController.swift in Sources */,
 				75480C6227201BF00076DE14 /* PokemonCollectionViewCell.swift in Sources */,
 				75480C55271EC3D20076DE14 /* ErrorMessages.swift in Sources */,
 				75480C2F271E67330076DE14 /* AppDelegate.swift in Sources */,
 				75480C46271EA7F20076DE14 /* ServiceAPI.swift in Sources */,
 				75480C31271E67330076DE14 /* SceneDelegate.swift in Sources */,
+				75480C71272163410076DE14 /* secondViewController.swift in Sources */,
 				75480C58271FDB8C0076DE14 /* UIKitHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

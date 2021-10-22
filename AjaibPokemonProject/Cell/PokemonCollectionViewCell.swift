@@ -11,6 +11,7 @@ import SnapKit
 class PokemonCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imagePokemon: UIImageView!
     
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setImageConstraints()

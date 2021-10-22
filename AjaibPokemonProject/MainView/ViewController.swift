@@ -15,68 +15,68 @@ class ViewController: UIViewController {
     private let Backgroundcolor = UIColor(hexString: "#1A202C")
     private let navBackgroundColor = UIColor(hexString: "#161B22")
     
+    private var pokemonsStorage = [Model]()
+//    private var filteredData = [Model]?.self
     
-    
-    private var navBar : UINavigationBar = {
-        let navbar = UINavigationBar()
-        navbar.translatesAutoresizingMaskIntoConstraints = false
+    // MARK: - Outlets
+        private var navBar : UINavigationBar = {
+            let navbar = UINavigationBar()
+            navbar.translatesAutoresizingMaskIntoConstraints = false
+            return navbar
+        }()
         
-        return navbar
-    }()
+        private var searchPokemonBar : UISearchBar = {
+            let searchpokemonbar = UISearchBar()
+            searchpokemonbar.translatesAutoresizingMaskIntoConstraints = false
+            searchpokemonbar.barTintColor = .gray
+            searchpokemonbar.backgroundColor = .black
+            return searchpokemonbar
+        }()
     
-    private var searchPokemonBar : UISearchBar = {
-        let searchpokemonbar = UISearchBar()
-        searchpokemonbar.translatesAutoresizingMaskIntoConstraints = false
-        
-        return searchpokemonbar
-    }()
-    
-    //dummy data
-    private var items = ["007","jungle","shangchi"]
-    //dummy data
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.backgroundColor = Backgroundcolor
         navBar.backgroundColor = navBackgroundColor
+        searchPokemonBar.delegate = self
         
         view.addSubview(navBar)
-        
+        view.addSubview(searchPokemonBar)
         
         
         pokemonCollectionView.register(PokemonCollectionViewCell.nib(), forCellWithReuseIdentifier: PokemonCollectionViewCell.cellName())
         
-
+        //API Stuffs
+        ServiceAPI.shared.getResults(pokemonName: "Pikachu") { result in
+            DispatchQueue.main.async { [weak self] in
+                switch result {
+                case .success(let results):
+                    
+                    for result in results.data {
+                        let pokemons = Model()
+                        pokemons.name = result.name
+                        pokemons.types = result.types
+                        pokemons.subtypes = result.subtypes
+                        pokemons.flavorText = result.flavorText
+                        pokemons.images = result.images.small
+                        self?.pokemonsStorage.append(pokemons)
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+                self?.pokemonCollectionView.reloadData()
+            }
+        }
+        pokemonCollectionView.backgroundColor = .clear
+        
+        addConstraints()
         
         pokemonCollectionView.dataSource = self
         pokemonCollectionView.delegate = self
-    
-        //API Stuffs
-        ServiceAPI.shared.getResults(pokemonName: "Pikachu") { result in
-            switch result {
-            case .success(let results):
-//                print(results)
-                
-                var pokemons = Model()
-                
-                for i in 0...5{
-                    pokemons.name = results.data[i].name
-                    pokemons.types = results.data[i].types
-                    pokemons.subtypes = results.data[i].subtypes
-  
-                    print("\(pokemons.name) + \(pokemons.types) + \(pokemons.subtypes)")
-                    
-                }
-                
-            case .failure(let error):
-                print(error)
-            }
-        }
-        
-        addConstraints()
-        pokemonCollectionView.backgroundColor = .clear
     }
+    
     
     
     private func addConstraints() {
@@ -87,19 +87,16 @@ class ViewController: UIViewController {
             make.height.equalTo(100)
         }
         
-//        self.searchPokemonBar.snp.makeConstraints{
-//            make in
-////            make.leading.equalTo(16)
-////            make.trailing.equalTo(-16)
-//            make.top.equalTo(self.navBar.snp.height).offset(10)
-//
-//        }
+        self.searchPokemonBar.snp.makeConstraints{
+            make in
+            make.leading.equalTo(16)
+            make.trailing.equalTo(-16)
+            make.top.equalTo(navBar.snp.bottomMargin)
+            make.height.equalTo(40)
+
+        }
         
         self.pokemonCollectionView.snp.makeConstraints{ make in
-//            make.leading.equalTo(16)
-//            make.trailing.equalTo(-16)
-//            make.top.equalTo(10)
-//            make.bottom.equalTo(-10)
             
             make.leading.equalTo(16)
             make.trailing.equalTo(-16)
@@ -110,7 +107,27 @@ class ViewController: UIViewController {
             
         }
     }
+    
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        filteredData = []
+//
+//        if searchText == ""{
+//            filteredData = pokemonsStorage
+//        }else{
+//            for images in pokemonsStorage {
+//                if images.lowercased().contains(searchText.lowercased()){
+//                    filteredData.append(images)
+//                }
+//            }
+//        }
+//
+//        self.pokemonCollectionView.reloadData()
+//    }
+    
+
 }
+
+
 
 
 // MARK: - Collection View Delegate
@@ -119,12 +136,22 @@ extension ViewController: UICollectionViewDelegate {}
 // MARK: - Collection View Data Source
 extension ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.count
+        return pokemonsStorage.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PokemonCollectionViewCell", for: indexPath) as! PokemonCollectionViewCell
-        cell.setImage(image: UIImage(named: items[indexPath.row]))
+        
+        print(pokemonsStorage[indexPath.row].images)
+        ImageLoaderService.shared.getImage(urlString: pokemonsStorage[indexPath.row].images!) { (data, error) in
+            if error != nil {
+                cell.setImage(image: UIImage(named: "jungle"))
+                return
+            }
+            cell.setImage(image: UIImage(data: data!))
+        }
+        
+        
         return cell
     }
 }
@@ -146,6 +173,9 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
         }
     }
 }
+
+// MARK: - UI Search Bar Delegate
+extension ViewController : UISearchBarDelegate {}
 
 // MARK: - Extension for UIColor using HEX Code
 extension UIColor {
