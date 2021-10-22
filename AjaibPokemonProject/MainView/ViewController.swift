@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     private let navBackgroundColor = UIColor(hexString: "#161B22")
     
     private var pokemonsStorage = [Model]()
-//    private var filteredData = [Model]?.self
+    private var filteredData = [Model]()
     
     // MARK: - Outlets
         private var navBar : UINavigationBar = {
@@ -40,7 +40,9 @@ class ViewController: UIViewController {
 
         view.backgroundColor = Backgroundcolor
         navBar.backgroundColor = navBackgroundColor
-        searchPokemonBar.delegate = self
+        pokemonCollectionView.backgroundColor = .clear
+        
+
         
         view.addSubview(navBar)
         view.addSubview(searchPokemonBar)
@@ -49,7 +51,19 @@ class ViewController: UIViewController {
         pokemonCollectionView.register(PokemonCollectionViewCell.nib(), forCellWithReuseIdentifier: PokemonCollectionViewCell.cellName())
         
         //API Stuffs
-        ServiceAPI.shared.getResults(pokemonName: "Pikachu") { result in
+        setupAPI()
+        
+        addConstraints()
+        
+        
+        pokemonCollectionView.dataSource = self
+        pokemonCollectionView.delegate = self
+        searchPokemonBar.delegate = self
+    }
+    
+    
+    private func setupAPI(){
+        ServiceAPI.shared.getResults{ result in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success(let results):
@@ -69,15 +83,7 @@ class ViewController: UIViewController {
                 self?.pokemonCollectionView.reloadData()
             }
         }
-        pokemonCollectionView.backgroundColor = .clear
-        
-        addConstraints()
-        
-        pokemonCollectionView.dataSource = self
-        pokemonCollectionView.delegate = self
     }
-    
-    
     
     private func addConstraints() {
         
@@ -93,7 +99,6 @@ class ViewController: UIViewController {
             make.trailing.equalTo(-16)
             make.top.equalTo(navBar.snp.bottomMargin)
             make.height.equalTo(40)
-
         }
         
         self.pokemonCollectionView.snp.makeConstraints{ make in
@@ -102,29 +107,25 @@ class ViewController: UIViewController {
             make.trailing.equalTo(-16)
             make.top.equalTo(108)
             make.bottom.equalTo(-10)
-            
-
-            
         }
     }
     
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        filteredData = []
-//
-//        if searchText == ""{
-//            filteredData = pokemonsStorage
-//        }else{
-//            for images in pokemonsStorage {
-//                if images.lowercased().contains(searchText.lowercased()){
-//                    filteredData.append(images)
-//                }
-//            }
-//        }
-//
-//        self.pokemonCollectionView.reloadData()
-//    }
-    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredData = []
 
+        if searchText == ""{
+            filteredData = pokemonsStorage
+        }else{
+            for name in pokemonsStorage {
+                if name.name!.lowercased().contains(searchText.lowercased()){
+                    print(name.name)
+                    filteredData.append(name)
+                }
+            }
+        }
+
+        self.pokemonCollectionView.reloadData()
+    }
 }
 
 
@@ -136,20 +137,25 @@ extension ViewController: UICollectionViewDelegate {}
 // MARK: - Collection View Data Source
 extension ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return pokemonsStorage.count
+//        return pokemonsStorage.count
+            return filteredData.count
+ 
+     
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PokemonCollectionViewCell", for: indexPath) as! PokemonCollectionViewCell
         
-        print(pokemonsStorage[indexPath.row].images)
-        ImageLoaderService.shared.getImage(urlString: pokemonsStorage[indexPath.row].images!) { (data, error) in
-            if error != nil {
-                cell.setImage(image: UIImage(named: "jungle"))
-                return
+//        print(pokemonsStorage[indexPath.row].images)
+        
+            ImageLoaderService.shared.getImage(urlString: filteredData[indexPath.row].images!) { (data, error) in
+                if error != nil {
+                    cell.setImage(image: UIImage(named: "jungle"))
+                    return
+                }
+                cell.setImage(image: UIImage(data: data!))
             }
-            cell.setImage(image: UIImage(data: data!))
-        }
+            
         
         
         return cell
