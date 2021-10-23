@@ -22,8 +22,19 @@ class DetailViewController: UIViewController {
     private var navBar : UINavigationBar = {
         let navbar = UINavigationBar()
         navbar.backgroundColor = .gray
+        let navItem = UINavigationItem()
+        let doneItem = UIBarButtonItem(title: "<", style: .plain, target: self, action: #selector(exit) )
+        navItem.leftBarButtonItem = doneItem
+        navbar.setItems([navItem], animated: false)
         return navbar
+        
     }()
+    
+    @objc private func exit(){
+        print("Test")
+        self.dismiss(animated: true)
+    }
+ 
     
     private var pokemonImage : UIImageView = {
         let pokemonimage = UIImageView()
@@ -69,12 +80,13 @@ class DetailViewController: UIViewController {
     }()
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-   
 
-        pokemonImage.image = UIImage(named: "shangchi")!
+
+//        pokemonImage.image = UIImage(named: images)!
+        getImageFromMain(string: details.images!)
         pokemonName.text = details.name
         pokemonType.text = details.types![0]
         pokemonSubType.text = details.subtypes![0]
@@ -87,6 +99,18 @@ class DetailViewController: UIViewController {
         addAllView()
         
         // Do any additional setup after loading the view.
+    }
+    
+    private func getImageFromMain(string : String){
+        ImageLoaderService.shared.getImage(urlString: string ) { (data, error) in
+            if error != nil {
+                self.pokemonImage.image = UIImage(named: "jungle")
+                return
+            }
+            self.pokemonImage.image = UIImage(data: data!)
+//            cell.setImage(image: UIImage(data: data!))
+        }
+        
     }
     
     private func addAllView(){
