@@ -24,7 +24,7 @@ class DetailViewController: UIViewController {
     private var navBar : UINavigationBar = {
         let navbar = UINavigationBar()
 //        let navItem = UINavigationItem()
-//        navItem.backBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: nil )
+//        navItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil )
 //        navbar.setItems([navItem], animated: false)
         return navbar
     }()
@@ -36,40 +36,50 @@ class DetailViewController: UIViewController {
     
     private var pokemonName : UILabel = {
         let pokemonname = UILabel()
-        pokemonname.setTitle(uilabel: pokemonname)
+        pokemonname.text = "labelName"
         return pokemonname
     }()
     
     private var pokemonType : UILabel = {
         let pokemontype = UILabel()
-        pokemontype.setContent(uilabel: pokemontype)
+        pokemontype.text = "labelType"
         return pokemontype
     }()
     
     private var flavor : UILabel = {
         let flavor = UILabel()
         flavor.text = "Flavor :"
-        flavor.setTitle(uilabel: flavor)
         return flavor
     }()
     
     private var pokemonSubType : UILabel = {
         let pokemonsubtype = UILabel()
-        pokemonsubtype.setContent(uilabel: pokemonsubtype)
+        pokemonsubtype.text = "labelSub"
         return pokemonsubtype
     }()
     
     private var pokemonHp : UILabel = {
         let pokemonhp = UILabel()
-        pokemonhp.setContent(uilabel: pokemonhp)
+        pokemonhp.text = "labelHp"
         return pokemonhp
     }()
     
     private var pokemonFlavorText : UILabel = {
         let pokemonflavortext = UILabel()
-        pokemonflavortext.setContent(uilabel: pokemonflavortext)
+        pokemonflavortext.text = "flavorText"
         pokemonflavortext.sizeToFit()
         return pokemonflavortext
+    }()
+    
+    private var otherCards : UILabel = {
+        let othercards = UILabel()
+        othercards.text = "Other Cards :"
+        return othercards
+    }()
+    
+    private var detailCollectionView : UICollectionView = {
+        let detailcollectionview = UICollectionView()
+        
     }()
     
     
@@ -77,6 +87,48 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        initData()
+        
+        let button = UIButton()
+        button.setTitle("Back", for: .normal)
+        button.frame = CGRect(x: 16, y: 50, width: button.intrinsicContentSize.width, height: button.intrinsicContentSize.height)
+        button.addTarget(self, action: #selector(backButtonAction), for: .touchUpInside)
+        
+        view.addSubview(button)
+        
+        view.backgroundColor = Backgroundcolor
+        addAllView()
+        
+        labelConfiguration()
+        
+        // Do any additional setup after loading the view.
+    }
+    
+    @objc private func backButtonAction() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func setTitle(uilabel: UILabel){
+        uilabel.textColor = .white
+        uilabel.font = UIFont(name: "boldSystemFont", size: 20)
+    }
+    
+    private func setContent(uilabel: UILabel){
+        uilabel.textColor = .white
+        uilabel.font = UIFont(name: "systemFont", size: 16)
+    }
+    
+    private func labelConfiguration(){
+               setTitle(uilabel: pokemonName)
+               setContent(uilabel: pokemonType)
+               setContent(uilabel: pokemonSubType)
+               setContent(uilabel: pokemonHp)
+               setTitle(uilabel: flavor)
+               setContent(uilabel: pokemonFlavorText)
+               setTitle(uilabel: otherCards)
+    }
+    
+    private func initData(){
         getImageFromMain(string: details.images!)
         pokemonName.text = details.name
         pokemonType.text = details.types![0]
@@ -84,14 +136,7 @@ class DetailViewController: UIViewController {
         pokemonFlavorText.text = details.flavorText
         pokemonHp.text = details.hp
         
-    
-        view.backgroundColor = Backgroundcolor
-        navBar.backgroundColor = navBackgroundColor
-        addAllView()
-        
-        // Do any additional setup after loading the view.
     }
-    
     
     private func getImageFromMain(string : String){
         ImageLoaderService.shared.getImage(urlString: string ) { (data, error) in
@@ -104,17 +149,12 @@ class DetailViewController: UIViewController {
         
     }
     
-    
-    private func configureFonts(){
-        
-    }
-    
     private func addAllView(){
-        self.view.addSubview(navBar)
-        self.navBar.snp.makeConstraints{make in
-            make.height.equalTo(100)
-            make.width.equalToSuperview()
-        }
+//        self.view.addSubview(navBar)
+//        self.navBar.snp.makeConstraints{make in
+//            make.height.equalTo(100)
+//            make.width.equalToSuperview()
+//        }
         
         self.view.addSubview(pokemonImage)
         
@@ -122,7 +162,7 @@ class DetailViewController: UIViewController {
             make.height.equalTo(275)
             make.width.equalTo(190)
             make.centerX.equalToSuperview()
-            make.top.equalTo(navBar.snp.bottom).offset(16)
+            make.top.equalTo(view.snp.top).offset(108)
         }
         
         self.view.addSubview(pokemonName)
@@ -168,6 +208,13 @@ class DetailViewController: UIViewController {
             make.leading.equalToSuperview().inset(16)
             make.trailing.equalToSuperview().inset(16)
         }
+        
+        self.view.addSubview(otherCards)
+        
+        self.otherCards.snp.makeConstraints{make in
+            make.top.equalTo(pokemonFlavorText.snp.bottom).offset(100)
+            make.leading.equalToSuperview().inset(16)
+        }
     }
     
 
@@ -183,17 +230,7 @@ class DetailViewController: UIViewController {
 
 }
 
-extension UILabel {
-    func setTitle(uilabel : UILabel){
-        uilabel.textColor = .white
-        uilabel.font = UIFont(name: "boldSystemFont", size: 20)
-    }
-    
-    func setContent(uilabel : UILabel){
-        uilabel.textColor = .white
-        uilabel.font = UIFont(name: "systemFont", size: 16)
-    }
-}
+
 
 
 

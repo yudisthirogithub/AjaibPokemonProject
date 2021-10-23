@@ -55,6 +55,9 @@ class ViewController: UIViewController {
         view.addSubview(navBar)
         view.addSubview(searchPokemonBar)
         
+        searchPokemonBar.delegate = self
+        pokemonCollectionView.dataSource = self
+        pokemonCollectionView.delegate = self
         
         pokemonCollectionView.register(PokemonCollectionViewCell.nib(), forCellWithReuseIdentifier: PokemonCollectionViewCell.cellName())
         
@@ -62,18 +65,13 @@ class ViewController: UIViewController {
         setupAPI()
         
         addConstraints()
-        
-        
-        pokemonCollectionView.dataSource = self
-        pokemonCollectionView.delegate = self
-        searchPokemonBar.delegate = self
-        pokemonCollectionView.reloadData()
     }
     
     
     private func setupAPI(){
         ServiceAPI.shared.getResults{ result in
             DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
                 switch result {
                 case .success(let results):
                     
@@ -85,12 +83,18 @@ class ViewController: UIViewController {
                         pokemons.flavorText = result.flavorText
                         pokemons.images = result.images.small
                         pokemons.hp = result.hp
-                        self?.pokemonsStorage.append(pokemons)
+                        self.pokemonsStorage.append(pokemons)
                     }
+                    
+                    self.filteredData = []
+                    for pokemon in self.pokemonsStorage {
+                        self.filteredData.append(pokemon)
+                    }
+                    
                 case .failure(let error):
                     print(error)
                 }
-                self?.pokemonCollectionView.reloadData()
+                self.pokemonCollectionView.reloadData()
             }
         }
     }
@@ -122,7 +126,9 @@ class ViewController: UIViewController {
         filteredData = []
 
         if searchText == ""{
-            filteredData = pokemonsStorage
+            for pokemon in pokemonsStorage {
+                filteredData.append(pokemon)
+            }
         }else{
             for name in pokemonsStorage {
                 if name.name!.lowercased().contains(searchText.lowercased()){
@@ -154,6 +160,20 @@ class ViewController: UIViewController {
 //        detailView.details.subtypes = filteredData[indexPath.row].subtypes
 //        detailView.details.flavorText = filteredData[indexPath.row].flavorText
 //        detailView.details.images = filteredData[indexPath.row].images
+    }
+    
+    private func navigateToDetail(indexPath: IndexPath) {
+        let detailStoryboard = UIStoryboard(name: "Detail", bundle: nil)
+        let detailVC = detailStoryboard.instantiateViewController(identifier: "detail") as! DetailViewController
+        
+        detailVC.details.name = filteredData[indexPath.row].name
+        detailVC.details.flavorText = filteredData[indexPath.row].flavorText
+        detailVC.details.hp = filteredData[indexPath.row].hp
+        detailVC.details.types = filteredData[indexPath.row].types
+        detailVC.details.subtypes = filteredData[indexPath.row].subtypes
+        detailVC.details.images = filteredData[indexPath.row].images
+        
+        self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 
@@ -189,18 +209,11 @@ extension ViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(filteredData[indexPath.row].name)
         
-        let detailView = DetailViewController()
+        navigateToDetail(indexPath: indexPath)
         
-        name = filteredData[indexPath.row].name
-        types = filteredData[indexPath.row].types
-        hp = filteredData[indexPath.row].hp
-        subtypes = filteredData[indexPath.row].subtypes
-        flavorText = filteredData[indexPath.row].flavorText
-        images = filteredData[indexPath.row].images
         
-        performSegue(withIdentifier: "goToDetail", sender: self)
+//        performSegue(withIdentifier: "goToDetail", sender: self)
     }
 }
 
