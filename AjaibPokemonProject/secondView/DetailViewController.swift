@@ -10,6 +10,8 @@ import UIKit
 class DetailViewController: UIViewController {
 
     var details = Model()
+    private let Backgroundcolor = UIColor(hexString: "#1A202C")
+    private let navBackgroundColor = UIColor(hexString: "#161B22")
     
     var name : String!
     var subtypes : String!
@@ -21,21 +23,12 @@ class DetailViewController: UIViewController {
     // MARK: - Outlets
     private var navBar : UINavigationBar = {
         let navbar = UINavigationBar()
-        navbar.backgroundColor = .gray
-        let navItem = UINavigationItem()
-        let doneItem = UIBarButtonItem(title: "<", style: .plain, target: self, action: #selector(exit) )
-        navItem.leftBarButtonItem = doneItem
-        navbar.setItems([navItem], animated: false)
+//        let navItem = UINavigationItem()
+//        navItem.backBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: nil )
+//        navbar.setItems([navItem], animated: false)
         return navbar
-        
     }()
-    
-    @objc private func exit(){
-        print("Test")
-        self.dismiss(animated: true)
-    }
- 
-    
+
     private var pokemonImage : UIImageView = {
         let pokemonimage = UIImageView()
         return pokemonimage
@@ -43,38 +36,38 @@ class DetailViewController: UIViewController {
     
     private var pokemonName : UILabel = {
         let pokemonname = UILabel()
-        pokemonname.font.withSize(12)
+        pokemonname.setTitle(uilabel: pokemonname)
         return pokemonname
     }()
     
     private var pokemonType : UILabel = {
         let pokemontype = UILabel()
-        pokemontype.font.withSize(12)
+        pokemontype.setContent(uilabel: pokemontype)
         return pokemontype
     }()
     
     private var flavor : UILabel = {
         let flavor = UILabel()
         flavor.text = "Flavor :"
-        flavor.font.withSize(20)
+        flavor.setTitle(uilabel: flavor)
         return flavor
     }()
     
     private var pokemonSubType : UILabel = {
         let pokemonsubtype = UILabel()
-        pokemonsubtype.font.withSize(12)
+        pokemonsubtype.setContent(uilabel: pokemonsubtype)
         return pokemonsubtype
     }()
     
     private var pokemonHp : UILabel = {
         let pokemonhp = UILabel()
-        pokemonhp.font.withSize(12)
+        pokemonhp.setContent(uilabel: pokemonhp)
         return pokemonhp
     }()
     
     private var pokemonFlavorText : UILabel = {
         let pokemonflavortext = UILabel()
-        pokemonflavortext.font?.withSize(12)
+        pokemonflavortext.setContent(uilabel: pokemonflavortext)
         pokemonflavortext.sizeToFit()
         return pokemonflavortext
     }()
@@ -84,8 +77,6 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
-//        pokemonImage.image = UIImage(named: images)!
         getImageFromMain(string: details.images!)
         pokemonName.text = details.name
         pokemonType.text = details.types![0]
@@ -94,12 +85,13 @@ class DetailViewController: UIViewController {
         pokemonHp.text = details.hp
         
     
-//        view.backgroundColor = Backgroundcolor
-//        navBar.backgroundColor = navBackgroundColor
+        view.backgroundColor = Backgroundcolor
+        navBar.backgroundColor = navBackgroundColor
         addAllView()
         
         // Do any additional setup after loading the view.
     }
+    
     
     private func getImageFromMain(string : String){
         ImageLoaderService.shared.getImage(urlString: string ) { (data, error) in
@@ -108,14 +100,17 @@ class DetailViewController: UIViewController {
                 return
             }
             self.pokemonImage.image = UIImage(data: data!)
-//            cell.setImage(image: UIImage(data: data!))
         }
+        
+    }
+    
+    
+    private func configureFonts(){
         
     }
     
     private func addAllView(){
         self.view.addSubview(navBar)
-        
         self.navBar.snp.makeConstraints{make in
             make.height.equalTo(100)
             make.width.equalToSuperview()
@@ -127,7 +122,7 @@ class DetailViewController: UIViewController {
             make.height.equalTo(275)
             make.width.equalTo(190)
             make.centerX.equalToSuperview()
-            make.top.equalTo(navBar.snp.bottom).offset(8)
+            make.top.equalTo(navBar.snp.bottom).offset(16)
         }
         
         self.view.addSubview(pokemonName)
@@ -173,12 +168,6 @@ class DetailViewController: UIViewController {
             make.leading.equalToSuperview().inset(16)
             make.trailing.equalToSuperview().inset(16)
         }
-        
-        
-        
-//        self.view.addSubview(pokemonSubType)
-
-//        self.view.addSubview(pokemonFlavorText)
     }
     
 
@@ -193,5 +182,18 @@ class DetailViewController: UIViewController {
     */
 
 }
+
+extension UILabel {
+    func setTitle(uilabel : UILabel){
+        uilabel.textColor = .white
+        uilabel.font = UIFont(name: "boldSystemFont", size: 20)
+    }
+    
+    func setContent(uilabel : UILabel){
+        uilabel.textColor = .white
+        uilabel.font = UIFont(name: "systemFont", size: 16)
+    }
+}
+
 
 

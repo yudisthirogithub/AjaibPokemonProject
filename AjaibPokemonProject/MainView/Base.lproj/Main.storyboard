@@ -55,7 +55,9 @@
         <!--Detail-->
         <scene sceneID="sJV-wH-UdY">
             <objects>
-                <viewControllerPlaceholder storyboardName="Detail" id="irF-5X-XxC" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Detail" id="irF-5X-XxC" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="LS2-44-Wsn"/>
+                </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1F7-o8-yA6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="631" y="74"/>

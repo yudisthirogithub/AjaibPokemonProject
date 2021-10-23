@@ -12,8 +12,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var pokemonCollectionView: UICollectionView!
     
     private let spacing:CGFloat = 8.0
-    public let Backgroundcolor = UIColor(hexString: "#1A202C")
-    public let navBackgroundColor = UIColor(hexString: "#161B22")
+    private let Backgroundcolor = UIColor(hexString: "#1A202C")
+    private let navBackgroundColor = UIColor(hexString: "#161B22")
 
     private var pokemonsStorage = [Model]()
     private var filteredData = [Model]()
@@ -67,6 +67,7 @@ class ViewController: UIViewController {
         pokemonCollectionView.dataSource = self
         pokemonCollectionView.delegate = self
         searchPokemonBar.delegate = self
+        pokemonCollectionView.reloadData()
     }
     
     
@@ -102,16 +103,14 @@ class ViewController: UIViewController {
             make.height.equalTo(100)
         }
         
-        self.searchPokemonBar.snp.makeConstraints{
-            make in
+        self.searchPokemonBar.snp.makeConstraints{ make in
             make.leading.equalTo(16)
             make.trailing.equalTo(-16)
-            make.top.equalTo(navBar.snp.bottomMargin)
-            make.height.equalTo(40)
+            make.top.equalTo(navBar.snp.bottomMargin).inset(18)
+            make.bottom.equalTo(navBar)
         }
         
         self.pokemonCollectionView.snp.makeConstraints{ make in
-            
             make.leading.equalTo(16)
             make.trailing.equalTo(-16)
             make.top.equalTo(108)
@@ -256,4 +255,3 @@ extension UIColor {
     }
 }
 
-extension UIFont {}
