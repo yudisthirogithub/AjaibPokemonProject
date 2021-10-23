@@ -14,9 +14,17 @@ class ViewController: UIViewController {
     private let spacing:CGFloat = 8.0
     public let Backgroundcolor = UIColor(hexString: "#1A202C")
     public let navBackgroundColor = UIColor(hexString: "#161B22")
-    
+
     private var pokemonsStorage = [Model]()
     private var filteredData = [Model]()
+    
+    private var name : String!
+    private var subtypes : [String]!
+    private var types : [String]!
+    private var flavorText : String!
+    private var images : String!
+    private var hp : String!
+    
     
     // MARK: - Outlets
         private var navBar : UINavigationBar = {
@@ -130,9 +138,23 @@ class ViewController: UIViewController {
     
     // MARK: -Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToDetail" {
-            guard let vc = segue.destination as? DetailViewController else {return}
-        }
+        
+        
+        let destinationVC = segue.destination as! DetailViewController
+        
+        destinationVC.details.name = name
+        destinationVC.details.flavorText = flavorText
+        destinationVC.details.hp = hp
+        destinationVC.details.types = types
+        destinationVC.details.subtypes = subtypes
+        destinationVC.details.images = images
+        
+//        detailView.details.name =
+//        detailView.details.types = filteredData[indexPath.row].types
+//        detailView.details.hp = filteredData[indexPath.row].hp
+//        detailView.details.subtypes = filteredData[indexPath.row].subtypes
+//        detailView.details.flavorText = filteredData[indexPath.row].flavorText
+//        detailView.details.images = filteredData[indexPath.row].images
     }
 }
 
@@ -172,12 +194,12 @@ extension ViewController: UICollectionViewDataSource {
         
         let detailView = DetailViewController()
         
-        detailView.details.name = filteredData[indexPath.row].name
-        detailView.details.types = filteredData[indexPath.row].types
-        detailView.details.hp = filteredData[indexPath.row].hp
-        detailView.details.subtypes = filteredData[indexPath.row].subtypes
-        detailView.details.flavorText = filteredData[indexPath.row].flavorText
-        detailView.details.images = filteredData[indexPath.row].images
+        name = filteredData[indexPath.row].name
+        types = filteredData[indexPath.row].types
+        hp = filteredData[indexPath.row].hp
+        subtypes = filteredData[indexPath.row].subtypes
+        flavorText = filteredData[indexPath.row].flavorText
+        images = filteredData[indexPath.row].images
         
         performSegue(withIdentifier: "goToDetail", sender: self)
     }
@@ -233,3 +255,5 @@ extension UIColor {
         return String(format:"#%06x", rgb)
     }
 }
+
+extension UIFont {}

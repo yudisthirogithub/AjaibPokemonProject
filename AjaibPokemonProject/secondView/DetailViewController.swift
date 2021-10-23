@@ -32,14 +32,12 @@ class DetailViewController: UIViewController {
     
     private var pokemonName : UILabel = {
         let pokemonname = UILabel()
-//        pokemonname.text = "Pikachu"
         pokemonname.font.withSize(12)
         return pokemonname
     }()
     
     private var pokemonType : UILabel = {
         let pokemontype = UILabel()
-//        pokemontype.text = "Lighting"
         pokemontype.font.withSize(12)
         return pokemontype
     }()
@@ -53,22 +51,20 @@ class DetailViewController: UIViewController {
     
     private var pokemonSubType : UILabel = {
         let pokemonsubtype = UILabel()
-//        pokemonsubtype.text = "Pokemon - Basic"
         pokemonsubtype.font.withSize(12)
         return pokemonsubtype
     }()
     
     private var pokemonHp : UILabel = {
         let pokemonhp = UILabel()
-//        pokemonhp.text = "(\(10))"
         pokemonhp.font.withSize(12)
         return pokemonhp
     }()
     
     private var pokemonFlavorText : UILabel = {
         let pokemonflavortext = UILabel()
-//        pokemonflavortext.text = "\("WKWKKW SHANG CHI WOI KEREN BABI TAIK GGWP OI")"
         pokemonflavortext.font?.withSize(12)
+        pokemonflavortext.sizeToFit()
         return pokemonflavortext
     }()
     
@@ -77,15 +73,13 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         
    
-        print(details.name)
-        print(details.flavorText)
-        print(details.hp)
-//        pokemonImage.image = UIImage(named: "shangchi")!
-//        pokemonName.text = details.name
-////        pokemonType.text = details.types
-////        pokemonSubType.text = details.subtypes
-//        pokemonFlavorText.text = details.flavorText
-//        pokemonHp.text = details.hp
+
+        pokemonImage.image = UIImage(named: "shangchi")!
+        pokemonName.text = details.name
+        pokemonType.text = details.types![0]
+        pokemonSubType.text = details.subtypes![0]
+        pokemonFlavorText.text = details.flavorText
+        pokemonHp.text = details.hp
         
     
 //        view.backgroundColor = Backgroundcolor
@@ -153,6 +147,7 @@ class DetailViewController: UIViewController {
         self.pokemonFlavorText.snp.makeConstraints{make in
             make.top.equalTo(flavor.snp.bottom).offset(8)
             make.leading.equalToSuperview().inset(16)
+            make.trailing.equalToSuperview().inset(16)
         }
         
         
